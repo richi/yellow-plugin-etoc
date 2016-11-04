@@ -1,4 +1,4 @@
-EToc plugin 0.1.3
+EToc plugin 0.1.4
 =================
 
 A plugin for a (somewhat) extended table of contents that works in a sidebar as well.

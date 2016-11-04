@@ -6,29 +6,13 @@
 // Extended table of contents plugin
 class YellowEToc
 {
-	const VERSION = "0.1.3";
+	const VERSION = "0.1.4";
 	var $yellow;			//access to API
 	
 	// Handle initialisation
 	function onLoad($yellow)
 	{
 		$this->yellow = $yellow;
-	}
-	
-	// Handle page content parsing of custom block
-	function onParseContentBlock($page, $name, $text, $shortcut)
-	{
-		$output = null;
-		if($name=="etoc" && $shortcut && $page->get("title") == "Sidebar")
-		{
-			list($numbers) = $this->yellow->toolbox->getTextArgs($text);
-			$content = null;
-			$parent = $page->getParent();
-			if($parent) {
-  				$output = $this->generateToc($parent->getContent(), $numbers=="numbers");
-  			}
-		}
-		return $output;
 	}
 	
 	// Handle page content parsing
@@ -40,7 +24,7 @@ class YellowEToc
 			$numbers = $matches[2] == "numbers";
   			return $self->generateToc($page->getPage("main")->parserData, $numbers);
 		};
-		return preg_replace_callback("/<p>\[etoc(\s(numbers))?\]<\/p>\n/i", $callback, $text);
+		return preg_replace_callback("/<p>\[etoc(\s(.*))?\]<\/p>\n/i", $callback, $text);
 	}
 
 	function generateToc($content, $numbers)
